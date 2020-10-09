@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Communes;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -14,37 +15,21 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class CommunesRepository extends ServiceEntityRepository
 {
+    /**
+     * CommunesRepository constructor.
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Communes::class);
     }
 
-    // /**
-    //  * @return Communes[] Returns an array of Communes objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return int|mixed|string
+     */
+    public function findAllCommunes()
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $query = $this->createQueryBuilder('a');
+        return $query->getQuery()->getResult(Query::HYDRATE_ARRAY);
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Communes
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
